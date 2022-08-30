@@ -35,6 +35,7 @@ contract UNIdirection_payment_channel{
 
     function transact(uint _amount,uint _nonce,bytes memory _sig) external {
         require(msg.sender == receiver,"wrong address calling");
+        require(block.timestamp <= expiresAt,"contract time expired");
 
         address _receiver = verify_sig(_amount,_nonce,_sig);
         require(msg.sender == _receiver,"wrong address/wrong signature");
